@@ -1,0 +1,89 @@
+<ui:composition template="/templates/CPanelLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<ui:define id="content" name="content">
+		<br />
+		<br />
+
+
+
+		<h:form id="frmDT">
+
+			<p:growl id="growl" showDetail="true" life="4000" />
+
+			<p:dataTable dir="rtl" id="dtList" widgetVar="dtList"
+				style="width:80%;" value="#{‌ssMB.baseEntityList}" var="bb"
+				rowIndexVar="rowIndex" emptyMessage="هیچ رکوردی برای نمایش پیدا نشد"
+				paginator="true" rows="30" rowsPerPageTemplate="30,60,90,120"
+				paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				draggableColumns="true" selectionMode="single" rowKey="#{bb.id}">
+
+
+				<f:facet name="header">
+					<table>
+						<tr>
+							<td align="right" style="border: none !important;"><p:commandButton
+									oncomplete="PF('dlgNewEdit').show();"
+									style="float:right; width:190px !important;" value="تجدید صفحه"
+									ajax="true" /></td>
+							<td align="center" style="border: none !important;"><p:outputLabel
+									value="بارکد های سیستم" styleClass="btitr18-red" /></td>
+							<td align="left" style="border: none !important;"><p:commandLink
+									id="p1" ajax="false">
+									<p:graphicImage library="images" name="excel.png" width="24" />
+									<p:dataExporter type="xls" target="dtList"
+										fileName="AllCourseTypes" />
+								</p:commandLink></td>
+						</tr>
+					</table>
+				</f:facet>
+
+
+
+
+				<p:column headerText="ردیف" style="width:20px;text-align:center;"
+					styleClass="bnazaninbold14-red">
+					<p:outputLabel value="#{rowIndex+1}" styleClass="bnazanin18-red" />
+				</p:column>
+
+				<p:column headerText="بارکد" sortBy="#{bb.id}" filterBy="#{bb.id}"
+					filterMatchMode="contains" style="text-align: center;"
+					styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.id}" styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+
+				<p:column headerText="کد کالا" sortBy="#{bb.good.id}"
+					filterBy="#{bb.good.id}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.goods.id}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="کد فاکتور فروش" sortBy="#{bb.buyfact.id}"
+					filterBy="#{bb.buyfact.id}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.buyfact.id}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+
+
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>

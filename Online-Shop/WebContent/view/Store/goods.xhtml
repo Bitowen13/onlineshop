@@ -1,0 +1,187 @@
+
+<ui:composition template="/templates/CPanelLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<ui:define id="content" name="content">
+		<br />
+		<br />
+
+
+		<h:form id="frmNewEdit">
+			<p:dialog dir="rtl" id="dlgNewEdit"
+				header="ثبت / ویرایش اطلاعات اعضای انبار" widgetVar="dlgNewEdit"
+				styleClass="btitr18-red" closable="false" width="900" height="700">
+
+				<p:outputLabel
+					value="لطفا دقت نمایید، تکمیل فیلدهای ستاره دار الزامی می باشد."
+					styleClass="bnazaninbold16-red" />
+				<br />
+
+
+				<h:panelGrid id="panelgridNewEdit" columns="2"
+					columnClasses="bnazaninbold16-blue">
+
+
+
+					<h:outputLabel for="goodsinfo" value="نام کالا: "
+						styleClass="bnazaninbold16-blue" />
+					<p:selectOneMenu id="goodsinfo"
+						value="#{GoodMB.baseEntity.goodsinfo.id}"
+						panelStyleClass="menupanel">
+						<f:selectItems value="#{GoodMB.FindAll_Goodsinfo()}" var="bb"
+							itemLabel="#{bb.name}" itemValue="#{bb.id}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="pruddate" value="داریخ تولید: "
+						styleClass="bnazaninbold16-blue" />
+					<p:calendar id="pruddate" value="#{GoodMB.baseEntity.pruddate}" />
+
+
+					<p:outputLabel for="expdate" value="تاریخ انقضا: "
+						styleClass="bnazaninbold16-blue" />
+					<p:calendar id="expdate" value="#{GoodMB.baseEntity.expdate}" />
+
+
+				</h:panelGrid>
+
+
+				<p:spacer height="10" width="50" />
+				<p:commandButton type="submit" value="ثبت / ویرایش اطلاعات"
+					action="#{GoodMB.AddEdit()}" ajax="true"
+					style="width:180px !important;" icon="ui-icon-gNew"
+					update=":frmDT:dtList dlgNewEdit panelgridNewEdit"
+					oncomplete="PF('dlgNewEdit').show();" />
+	       
+	        &#160;&#160;&#160;&#160;
+	        <p:commandButton value="پایان عملیات / بستن فرم"
+					oncomplete="PF('dlgNewEdit').hide();" ajax="true"
+					action="#{GoodMB.setCancel()}" style="width:180px !important;"
+					icon="ui-icon-close"
+					update=":frmDT:dtList dlgNewEdit panelgridNewEdit" immediate="true"
+					process="@all" />
+
+
+				<p:messages styleClass="bnazaninbold16-red" id="messages"
+					showDetail="false" autoUpdate="true" closable="true" />
+
+			</p:dialog>
+		</h:form>
+
+
+
+		<h:form id="frmDT">
+
+			<p:growl id="growl" showDetail="true" life="4000" />
+
+			<p:dataTable dir="rtl" id="dtList" widgetVar="dtList"
+				style="width:85%;" value="#{GoodMB.baseEntityList}" var="bb"
+				rowIndexVar="rowIndex" emptyMessage="هیچ رکوردی برای نمایش پیدا نشد"
+				paginator="true" rows="30" rowsPerPageTemplate="30,60,90,120"
+				paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				draggableColumns="true" selectionMode="single" rowKey="#{bb.id}">
+
+
+				<f:facet name="header">
+					<table>
+						<tr>
+							<td></td>
+							<td align="center" style="border: none !important;"><p:outputLabel
+									value="مدیریت اطلاعات بخش های انبار" styleClass="btitr18-red" /></td>
+							<td align="left" style="border: none !important;"><p:commandLink
+									id="p1" ajax="false">
+									<p:graphicImage library="images" name="excel.png" width="24" />
+									<p:dataExporter type="xls" target="dtList"
+										fileName="AllCourseTypes" />
+								</p:commandLink></td>
+						</tr>
+					</table>
+				</f:facet>
+
+
+
+
+				<p:column headerText="ردیف" style="width:20px;text-align:center;"
+					styleClass="bnazaninbold14-red">
+					<p:outputLabel value="#{rowIndex+1}" styleClass="bnazanin18-red" />
+				</p:column>
+				<p:column headerText="نام کالا" sortBy="#{bb.goodsinfo.name}"
+					filterBy="#{bb.goodsinfo.name}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.goodsinfo.name}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="تاریخ تولید" sortBy="#{bb.pruddate}"
+					filterBy="#{bb.pruddate}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.pruddate}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="تاریخ انقضا" sortBy="#{bb.expdate}"
+					filterBy="#{bb.expdate}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.expdate}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="قیمت واحد" sortBy="#{bb.price}"
+					filterBy="#{bb.price}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.price}" styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="تعداد" sortBy="#{GoodMB.Showtotal(bb)}"
+					filterBy="#{GoodMB.Showtotal(bb)}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{GoodMB.Showtotal(bb)}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+				<p:column headerText="بخش انبار" sortBy="#{bb.storepart.name}"
+					filterBy="#{bb.storepart.name}" filterMatchMode="contains"
+					style="text-align: center;" styleClass="btitr16-blue">
+					<p:outputLabel value="#{bb.storepart.name}"
+						styleClass="bnazaninbold18-blue" />
+				</p:column>
+
+
+				<p:column headerText="ویرایش" styleClass="btitr16-blue"
+					style="width:40px !important;">
+					<p:commandButton oncomplete="PF('dlgNewEdit').show();"
+						icon="ui-icon-gEdit" type="submit" style="width:35px !important;"
+						value="" ajax="true" update=":frmNewEdit:dlgNewEdit"
+						process="@this" action="#{GoodMB.setSelectedRow(bb)}" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				styleClass="bnazaninbold16-red">
+				<p:commandButton value="بلی" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="خیر" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>

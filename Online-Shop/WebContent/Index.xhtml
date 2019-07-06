@@ -1,0 +1,60 @@
+<ui:composition template="templates/WelcomeLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<br />
+		<h:form id="form">
+			<p:dataGrid var="goods" value="#{dataGridView.cars}" columns="3"
+				layout="grid" rows="12" paginator="true" id="cars"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<f:facet name="header">
+           کالا های فروشی
+        </f:facet>
+
+				<p:panel header="" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage name="" />
+
+						<h:outputText value="#{car.year}" />
+
+						<p:commandLink update="" oncomplete="" title="View Detail">
+							<h:outputText styleClass="" style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{car}" target="" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:panel>
+
+			</p:dataGrid>
+
+			<p:dialog header="اطلاعات کالا" widgetVar="carDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="carDetail" style="text-align:center;">
+					<p:panelGrid columns="2" rendered="" columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage name="" />
+						</f:facet>
+
+						<h:outputText value="Id:" />
+						<h:outputText value="" />
+
+						<h:outputText value="Year" />
+						<h:outputText value="" />
+
+						<h:outputText value="Color:" />
+						<h:outputText value="" />
+
+						<h:outputText value="Price" />
+						<h:outputText value="" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

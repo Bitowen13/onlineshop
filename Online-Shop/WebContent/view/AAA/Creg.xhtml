@@ -1,0 +1,146 @@
+<ui:composition template="/templates/WelcomeLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<br />
+
+
+		<h:form id="loginForm">
+			<center>
+				<p:fieldset styleClass="btitr16"
+					legend="ثبت نام مشتریان" toggleable="true"
+					toggleSpeed="800" style="width:500px;direction: rtl">
+
+					<p:messages styleClass="bnazaninbold18-red" id="messages"
+						showDetail="false" autoUpdate="true" closable="true" />
+
+					<br />
+
+					<h:panelGrid columns="2">
+						<h:graphicImage library="images" name="register1.png" />
+
+						<table>
+							<tr>
+								<td><h:outputLabel styleClass="bnazaninbold16-red"
+										for="Username" value="نام کاربری" /></td>
+
+								<td>
+									<table>
+										<tr>
+											<td><p:inputText maxlength="99" id="Username"
+													value="#{UserMB.user.username}" required="true"
+													requiredMessage="فیلد نام کاربری نباید خالی باشد."
+													styleClass="bnazaninbold18">
+												</p:inputText></td>
+											<td style="font-family: B Nazanin"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><h:outputLabel styleClass="bnazaninbold16-red"
+										for="password" value="نام کاربر" /></td>
+
+								<td>
+									<table>
+										<tr>
+											<td><p:inputText maxlength="99" id="nickname"
+													value="#{UserMB.user.nickname}" feedback="false"
+													label="nickname" required="true"
+													requiredMessage="فیلد نام کاربر نباید خالی باشد."
+													styleClass="bnazaninbold18">
+												</p:inputText></td>
+											<td></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><h:outputLabel styleClass="bnazaninbold16-red"
+										for="mobile" value="شماره تلفن همراه" /></td>
+
+								<td>
+									<table>
+										<tr>
+											<td>
+												<p:inputMask maxlength="11" id="mobile" value="#{UserMB.user.mobile}" label="mobile" mask="99999999999" required="true"
+													styleClass="bnazaninbold18" requiredMessage="فيلد شماره تلفن همراه نبايد خالي باشد.">
+											</p:inputMask>
+												</td>
+											<td></td>
+										</tr>
+										
+									</table>
+								</td>
+							</tr>
+							
+							
+								<tr>
+								<td><h:outputLabel styleClass="bnazaninbold16-red"
+										for="email" value="ایمیل" /></td>
+
+								<td>
+									<table>
+										<tr>
+											<td>
+												<p:inputText id="email" required="true" size="40" requiredMessage="فيلد پست الکترونیک نبايد خالي باشد."
+											validatorMessage="فرمت پست الکترونیک را درست وارد کنید." value="#{UserMB.user.email}" 	styleClass="bnazaninbold18">
+										<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+											</p:inputText>
+												</td>
+											<td></td>
+										</tr>
+										
+										
+										
+									</table>
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td><h:outputLabel styleClass="bnazaninbold16-red"
+										for="role" value="ثبت نام به عنوان" /></td>
+
+								<td>
+									<table>
+										<tr>
+											<td>
+												<p:selectOneRadio id="role"
+												value="#{UserMB.user.aarole.id}"
+												style="width:250px !important;" required="true"
+													requiredMessage="حداقل یک گزینه را انتخاب کنید">
+												<f:selectItem itemLabel="مشتری" itemValue="12" />
+												</p:selectOneRadio>
+												</td>
+											<td></td>
+										</tr>
+										
+										
+										
+									</table>
+								</td>
+							</tr>
+
+
+						</table>
+
+					</h:panelGrid>
+
+					<center>
+						<p:commandButton type="submit" value="ثبت نام" ajax="true"
+							action="#{UserMB.AddEdit()}" />
+					</center>
+
+				</p:fieldset>
+			</center>
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

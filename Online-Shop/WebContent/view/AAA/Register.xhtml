@@ -1,0 +1,86 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:define id="content" name="content">
+<br/><br/>
+
+	
+<h:form id="Register">	
+		<p:dialog dir="rtl" id="dlgNewEdit" header="ثبت نام در سیستم فروشگاه آنلاین" widgetVar="dlgNewEdit" styleClass="btitr18-red"
+				  closable="false" width="750" height="500">				  
+					
+			<p:outputLabel value="لطفا دقت نمایید، تکمیل فیلدهای ستاره دار الزامی می باشد" styleClass="bnazaninbold16-red"/>							
+	        <br/>
+	        <p:outputLabel value="نام کاربری در زمان ثبت نباید تکراری باشد و در حین ویرایش نیز قابل تغییر نیست" styleClass="bnazaninbold16-red"/>							
+	        <br/>
+	        <p:outputLabel value="بعد از ایجاد کاربر جدید، رمز عبور کاربر به تلفن همراه وی فرستاده خواهد شد" styleClass="bnazaninbold16-red"/>							
+	        <br/>
+	        
+	        <h:panelGrid id="panelgridNewEdit" columns="2" columnClasses="bnazaninbold16-blue">					           
+					            
+	            <p:outputLabel for="username" value="نام کاربری: " styleClass="bnazaninbold16-blue"/>
+	            <p:inputText rendered="#{!UserMB.isEdit}" id="username" maxlength="99" value="#{UserMB.user.username}"
+	            			required="true" requiredMessage="فیلد نام کاربری نباید خالی باشد.">
+	            </p:inputText>
+	            <p:outputLabel  rendered="#{UserMB.isEdit}"  value="#{UserMB.user.username}" styleClass="bnazaninbold16-red"/>
+	            
+	            	            
+
+	            <p:outputLabel for="nickname" value="نام کاربر: " styleClass="bnazaninbold16-blue"/>
+	            <p:inputText id="nickname" maxlength="99" value="#{UserMB.user.nickname}"
+	            			required="true" requiredMessage="فیلد نام کاربر نباید خالی باشد.">
+	            </p:inputText>
+
+
+				<p:outputLabel for="mobile" value="شماره تلفن همراه:" styleClass="bnazaninbold16-blue" />
+				<p:inputMask maxlength="11" id="mobile" value="#{UserMB.user.mobile}" label="mobile" mask="99999999999" required="true"
+					styleClass="bnazaninbold18" requiredMessage="فيلد شماره تلفن همراه نبايد خالي باشد.">
+				</p:inputMask>
+
+
+
+				<h:outputLabel for="email" value="پست الکترونیک:" styleClass="bnazaninbold16-blue" />
+				<p:inputText id="email" required="true" size="40" requiredMessage="فيلد پست الکترونیک نبايد خالي باشد."
+					validatorMessage="فرمت پست الکترونیک را درست وارد کنید." value="#{UserMB.user.email}" style="width:270px !important;">
+					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+
+
+				<h:outputLabel for="role" value="انتخاب نقش کاربر:" styleClass="bnazaninbold16-blue" />
+				<p:selectOneMenu id="role" value="#{UserMB.user.aarole.id}"  panelStyleClass="menupanel">
+					<f:selectItems value="مشتری" var="bb"
+						itemLabel="#{bb.name}" itemValue="#{bb.id}" />
+				</p:selectOneMenu>						
+
+	            
+				<br/>
+				
+			</h:panelGrid>
+			
+			
+	        <p:spacer height="10" width="50"/>
+	        <p:commandButton  type="submit" value="ثبت / ویرایش اطلاعات" action="#{UserMB.AddEdit()}" ajax="true" 
+	        		style="width:180px !important;" icon="ui-icon-gNew"/>
+	       
+	        &#160;&#160;&#160;&#160;
+	        <p:commandButton value="پایان عملیات / بستن فرم" oncomplete="PF('dlgNewEdit').hide();" ajax="true" action="#{UserMB.setCancel()}"
+	        		style="width:180px !important;" update=":frmDT:dtList dlgNewEdit panelgridNewEdit" immediate="true" icon="ui-icon-close"/>
+
+
+			<p:messages styleClass="bnazaninbold16-red" id="messages" showDetail="false" autoUpdate="true" closable="true" />
+		
+		</p:dialog>
+</h:form>
+
+
+
+
+
+<br/><br/><br/><br/><br/><br/>
+    
+</ui:define>
+</ui:composition>
